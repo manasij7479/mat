@@ -1,4 +1,7 @@
-﻿#include <xmmintrin.h> 
+﻿#ifndef MAT_VECTOR_SIMD_HPP
+#define MAT_VECTOR_SIMD_HPP
+
+#include <xmmintrin.h> 
 
 namespace mat {
 
@@ -46,3 +49,5 @@ private:
 };
 
 }
+
+#endif 
