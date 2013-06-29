@@ -68,6 +68,10 @@ namespace mat
 			if(!EdgePolicy::directed)
 				removeEdge(y,x,e);	
 		}
+		std::size_t size()
+		{
+			return lists.size();
+		}
 		
 		typedef typename std::vector<VertexData>::iterator vertex_iterator;
 		vertex_iterator begin(){return lists.begin();}

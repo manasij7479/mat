@@ -9,6 +9,8 @@ namespace mat
 	template <typename Vertex, typename Edge, typename EdgePolicy = SimpleDigraph>
 	class AdjacencyMatrix:private EdgePolicy
 	{
+		typedef std::vector<std::vector<Edge>> MatType;
+		std::unordered_map<Vertex,std::size_t> MapType;
 	public:
 		void insertVertex(const Vertex& v)
 		{
@@ -40,9 +42,49 @@ namespace mat
 			Edge& ref = getEdge(x,y);
 			ref=Edge();
 		}
+		
+		struct vertex_iterator
+		{
+			
+		};
+		
+		
+		class EdgeList 
+		{
+		public:
+			class iterator
+			{
+			public:
+				iterator(const Vertex& v_,std::size_t cur_,MatType& mat_,MapType& map_,std::vector<Vertex>& tam_)
+				:v(v_),cur(set(cur_)),vec(mat_[map_[v]]),map(map_),tam(tam_){};
+				std::pair<Vertex,Edge> operator*()
+				{
+					return std::make_pair(tam[cur],vec[cur]);
+				}
+				///TODO: Other operators
+			private:
+				Vertex v;
+				std::size_t cur;
+				std::vector<Edge>& vec;
+				MapType& map;
+				std::vector<Vertex>& tam;
+				
+				
+				std::size_t set(std::size_t i)
+				{
+					while(vec[i]==Edge())
+						++i;
+					return i;
+				}
+			};
+		};
+		
+		struct VertexData {Vertex v;EdgeList list;};
 	private:
-		std::vector<std::vector<Edge>> mat;
-		std::unordered_map<Vertex,std::size_t> map;
+		MatType mat;
+		MapType map;
+		
+		std::vector<Vertex> tam;
 		
 		Edge& getEdge(const Vertex& x,const Vertex& y)
 		{
