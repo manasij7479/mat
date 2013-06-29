@@ -3,21 +3,20 @@
 namespace mat
 {
 	template<typename T,std::size_t D>
-	T dot(Vector<T,D>& x,Vector<T,D>& y)
+	T dot(const Vector<T,D>& x,const Vector<T,D>& y)
 	{
 		T result=T();
-		std::size_t i;
-		while(i<D)
-			result+=x[i]*y[i++];
+		for(auto i=0;i<D;++i)
+			result+=x.at(i)*y.at(i);
 		return result;
 	}
 	
 	template<typename T,std::size_t D>
-	Vector<T,D> add(Vector<T,D>& x,Vector<T,D>& y)
+	Vector<T,D> add(const Vector<T,D>& x,const Vector<T,D>& y)
 	{
 		Vector<T,D> result;
 		for(auto i=0;i<D;++i)
-			result[i]=x[i]+y[i];
+			result[i]=x.at(i)+y.at(i);
 		return result;
 	}
 	
