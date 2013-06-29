@@ -4,7 +4,7 @@
 int main()
 {
 	int x[]={1,2,3,4};
-	mat::Matrix<int,2,2> m = mat::make_matrix<int,2,2>(x);
+	mat::Matrix<int,2,2,true> m = mat::make_matrix<int,2,2,true>(x);
 	auto p = mat::multiply_r(m,m);
 	std::cout<<p[0][0];
 }

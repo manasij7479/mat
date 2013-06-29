@@ -3,7 +3,7 @@
 #include<cstddef>
 namespace mat
 {
-	template<typename T,std::size_t R,std::size_t C> class Matrix;
+	template<typename T,std::size_t R,std::size_t C,bool Order=true> class Matrix;
 }
 #endif
 #include "generic.cxx"
