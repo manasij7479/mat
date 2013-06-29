@@ -1,6 +1,5 @@
 #ifndef MAT_GRAPH_ADJLIST_HPP
 #define MAT_GRAPH_ADJLIST_HPP
-
 namespace mat
 {
 
@@ -8,6 +7,7 @@ namespace mat
 	template <typename Vertex, typename Edge, typename EdgePolicy> class AdjacencyList;
 	
 	//TODO: Interface description
+
 	
 	//Sample EdgePolicy
 	struct SimpleDigraph

@@ -63,7 +63,6 @@ namespace mat
 		void removeEdge(const Vertex& x,const Vertex& y,const Edge& e)
 		{
 			auto& list = getList(x);
-// 			std::remove(list.begin(),list.end(),std::make_pair(y,e));
 			list.remove(std::make_pair(y,e));
 			if(!EdgePolicy::directed)
 				removeEdge(y,x,e);	
