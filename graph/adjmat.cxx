@@ -13,6 +13,14 @@ namespace mat
 		typedef std::vector<std::vector<Edge>> MatType;
 		typedef std::unordered_map<Vertex,std::size_t> MapType;
 	public:
+		AdjacencyMatrix()
+		{
+			static_assert
+			(
+				!EdgePolicy::multi,
+				"Multigraph in Adjacency Matrix not available."
+			);
+		}
 		void insertVertex(const Vertex& v)
 		{
 			if(map.find(v)==map.end())
@@ -30,11 +38,14 @@ namespace mat
 		void removeVertex(const Vertex& v)
 		{
 			auto i = map[v];
-			tam.erase(tam.begin()+i);
 			mat.erase(mat.begin()+i);
-			for(auto& x:mat)
-				x.erase(x.begin()+i);
-			map.erase(v);
+			auto it=tam.erase(tam.begin()+i);
+			
+			for(auto& v:mat)
+				v.erase(v.begin()+i);
+			
+			while(it!=tam.end())
+				map[*it++]--;
 		}
 		void insertEdge(const Vertex& x,const Vertex& y,const Edge& e)
 		{

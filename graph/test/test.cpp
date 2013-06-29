@@ -8,4 +8,7 @@ int main()
 	
 	mat::debug_display(g,std::cout);
 	
+	g.removeVertex(2);
+	
+	mat::debug_display(g,std::cout);
 }

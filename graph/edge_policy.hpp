@@ -2,11 +2,12 @@
 #define MAT_GRAPH_EDGE_POLICY_HPP
 namespace mat
 {
-	//Sample EdgePolicy
+	//Sample EdgePolicies
 	struct SimpleDigraph
 	{
 		static const bool multi = false;
 		static const bool directed = true;
 	};
+	
 }
 #endif
