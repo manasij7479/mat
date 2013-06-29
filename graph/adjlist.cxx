@@ -1,6 +1,11 @@
 #ifndef MAT_GRAPH_ADJLIST_CXX
 #define MAT_GRAPH_ADJLIST_CXX
+#include <vector>
+#include <list>
+#include <unordered_map>
 #include <algorithm>
+#include<stdexcept>
+#include<iostream>
 namespace mat
 {
 	template <typename Vertex, typename Edge, typename EdgePolicy=SimpleDigraph>
@@ -19,12 +24,28 @@ namespace mat
 		}
 		void removeVertex(const Vertex& v)
 		{
-			std::remove_if(begin(),end(),[&](VertexData& vd){return vd.v==v;});
-			for(auto& x = begin();x!=end();++x)
+			bool done = false;
+			for(auto x = begin();x!=end();)
 			{
-				std::remove_if(nbegin(x->v),nend(x->v),[&](std::pair<Vertex,Edge> ve){return v==ve.first;});
+				if(done)
+					map[x->v]--;
+				else if(x->v==v)
+				{
+					x=lists.erase(x);
+					done=true;
+					continue;
+				}
+				for(auto y = x->list.begin();y!=x->list.end();)
+				{
+					if(y->first == v)
+					{
+							y=x->list.erase(y);
+							continue;
+					}
+					++y;
+				}
+				++x;
 			}
-			
 		}
 		void insertEdge(const Vertex& x,const Vertex& y,const Edge& e)
 		{
@@ -41,8 +62,9 @@ namespace mat
 		}
 		void removeEdge(const Vertex& x,const Vertex& y,const Edge& e)
 		{
-			auto list = getList(x);
-			std::remove(list.first(),list.second(),std::make_pair(y,e));
+			auto& list = getList(x);
+// 			std::remove(list.begin(),list.end(),std::make_pair(y,e));
+			list.remove(std::make_pair(y,e));
 			if(!EdgePolicy::directed)
 				removeEdge(y,x,e);	
 		}

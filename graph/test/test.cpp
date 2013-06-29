@@ -24,4 +24,18 @@ int main()
 		}
 		std::cout<<"***"<<std::endl;
 	}
+	
+	std::cout<<std::endl;
+	
+	g.removeVertex(5);
+	for(auto x = g.begin();x!=g.end();++x)
+	{
+		std::cout<<"["<<x->v<<"]->";
+		for(auto y = g.nbegin(x->v);y!=g.nend(x->v);++y)
+		{
+			std::cout<<"("<< y->first<<","<< y->second<<")->";
+		}
+		std::cout<<"***"<<std::endl;
+	}
+	
 }
