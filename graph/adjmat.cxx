@@ -50,12 +50,21 @@ namespace mat
 		void insertEdge(const Vertex& x,const Vertex& y,const Edge& e)
 		{
 			Edge& ref = getEdge(x,y);
-			ref=e;
+			if(ref==e)
+				return;
+			else ref=e;
+			if(!EdgePolicy::directed)
+				insertEdge(y,x,e);
 		}
 		void removeEdge(const Vertex& x,const Vertex& y,const Edge& = Edge())
 		{
 			Edge& ref = getEdge(x,y);
-			ref=Edge();
+			if(ref==Edge())
+				return;
+			else 
+				ref=Edge();
+			if(!EdgePolicy::directed)
+				removeEdge(y,x,e);
 		}
 		std::size_t size()
 		{

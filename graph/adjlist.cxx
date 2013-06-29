@@ -54,6 +54,9 @@ namespace mat
 			auto p = std::make_pair(y,e);
 			auto it = std::find_if(list.begin(),list.end(),[&](std::pair<Vertex,Edge> v){return v.first==y;});
 			
+			if(it->second==e)
+				return;
+			
 			if(it==list.end()||EdgePolicy::multi)
 				list.push_back(p);
 			else
@@ -66,7 +69,10 @@ namespace mat
 			auto& list = getList(x);
 			list.remove(std::make_pair(y,e));
 			if(!EdgePolicy::directed)
-				removeEdge(y,x,e);	
+			{
+				list = getList(y);
+				list.remove(std::make_pair(x,e));
+			}
 		}
 		std::size_t size()
 		{
