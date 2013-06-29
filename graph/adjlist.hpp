@@ -4,6 +4,7 @@
 #include <list>
 #include <unordered_map>
 #include <algorithm>
+#include<stdexcept>
 
 namespace mat
 {
@@ -62,7 +63,12 @@ namespace mat
 		edge_iterator nend(const Vertex& v){return getList(v).end();}
 	private:
 		
-		EdgeList& getList(const Vertex& v){return lists[map[v]].list;}
+		EdgeList& getList(const Vertex& v)
+		{
+			if(map.find(v)==map.end())
+				throw(std::runtime_error("Vertex absent in Graph.\n"));
+			return lists[map[v]].list;
+		}
 		
 		std::vector<VertexData> lists; // The data for vertex v is stored in map[v] index of this list
 		std::unordered_map<Vertex,std::size_t> map;
