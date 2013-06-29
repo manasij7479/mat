@@ -13,7 +13,10 @@ namespace mat
 		{
 			std::fill(d,d+D,T());
 		}
-
+		Vector(const Vector<T,D>& v)
+		{
+			std::copy(v.begin(),v.end(),d);
+		}
 		inline T& operator[](std::size_t i)
 		{
 			return d[i];
