@@ -3,10 +3,10 @@
 #include "matrix.hpp"
 namespace mat
 {
-	template<typename T,std::size_t P,std::size_t Q,std::size_t R>
-	Matrix<T,P,R> multiply_r(Matrix<T,P,Q>& a,Matrix<T,Q,R>& b)
+	template<typename T,std::size_t P,std::size_t Q,std::size_t R,bool Order>
+	Matrix<T,P,R,Order> multiply(Matrix<T,P,Q,Order>& a,Matrix<T,Q,R,Order>& b)
 	{
-		Matrix<T,P,R> m;
+		Matrix<T,P,R,Order> m;
 		for(auto i=0;i<P;++i)
 		{
 			for(auto j=0;j<R;++j)
