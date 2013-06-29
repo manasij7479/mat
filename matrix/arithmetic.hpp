@@ -29,5 +29,7 @@ namespace mat
 			for(auto j=0;i<C;++j)
 				std::swap(m[i][j],m[j][i]);
 	}
+	
+	
 }
 #endif
