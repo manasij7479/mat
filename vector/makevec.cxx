@@ -26,7 +26,7 @@ namespace mat
 	Vector<T,D> make_vector(T t,...)
 	{
 		Vector<T,D> result;
-		int i=0;
+		unsigned int i=0;
 		result[i++]=t;
 		std::va_list vl;
 		va_start(vl,t);
