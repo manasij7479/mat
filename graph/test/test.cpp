@@ -8,5 +8,4 @@ int main()
 	
 	mat::debug_display(g,std::cout);
 	
-	
 }

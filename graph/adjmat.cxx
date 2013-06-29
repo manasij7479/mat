@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_map>
 #include <stdexcept>
+#include <memory>
 #include "edge_policy.hpp"
 namespace mat
 {
@@ -22,6 +23,7 @@ namespace mat
 					mat.push_back(std::vector<Edge>(1,Edge()));
 				else
 					mat.push_back(std::vector<Edge>(mat[0].size(),Edge()));
+				map[v] = tam.size();
 				tam.push_back(v);
 			}
 		}
@@ -54,6 +56,17 @@ namespace mat
 			EdgeList(MapType& map_,std::vector<Vertex>& tam_,std::vector<Vertex>& vec_)
 			:map(map_),tam(tam_),vec(vec_){};
 			
+			EdgeList(const EdgeList& e)
+			:map(e.map),tam(e.tam),vec(e.vec){}
+			
+			EdgeList& operator=(const EdgeList& e)
+			{
+				map = e.map;
+				tam = e.tam;
+				vec = e.vec;
+				return *this;
+			}
+			
 			class iterator
 			{
 			public:
@@ -62,6 +75,11 @@ namespace mat
 				std::pair<Vertex,Edge> operator*()
 				{
 					return std::make_pair(tam[cur],vec[cur]);
+				}
+				std::unique_ptr<std::pair<Vertex,Edge>> operator->()
+				{
+					return std::unique_ptr<std::pair<Vertex,Edge>>
+					(new std::pair<Vertex,Edge>(tam[cur],vec[cur]));
 				}
 				bool operator==(iterator it){return cur==it.cur;}
 				bool operator!=(iterator it){return cur!=it.cur;}
@@ -118,15 +136,25 @@ namespace mat
 		class vertex_iterator
 		{
 		public:
-			struct VertexData {Vertex v;EdgeList list;};
+			class VertexData 
+			{
+			public:
+				VertexData(const Vertex& v_,const EdgeList& e):v(v_),list(e){};
+				Vertex v;
+				EdgeList list;
+			};
 			vertex_iterator(std::size_t cur_,MapType& map_,MatType& mat_,std::vector<Vertex>& tam_)
 			:cur(cur_),map(map_),mat(mat_),tam(tam_){}
 			VertexData operator*()
 			{
-				VertexData v;
-				v.v=tam[cur];
-				v.list = EdgeList(map,tam,mat[map[v.v]]);
+				VertexData v(tam[cur],EdgeList(map,tam,mat[map[v.v]]));
 				return v;
+			}
+			std::unique_ptr<VertexData> operator->()
+			{
+				return 
+				std::unique_ptr<VertexData>
+				(new VertexData(tam[cur],EdgeList(map,tam,mat[cur])));
 			}
 			bool operator==(vertex_iterator it){return cur==it.cur;}
 			bool operator!=(vertex_iterator it){return cur!=it.cur;}
