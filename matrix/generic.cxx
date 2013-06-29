@@ -3,6 +3,7 @@
 #include<algorithm>
 namespace mat
 {
+	
 	template<typename T,std::size_t R,std::size_t C,bool Order>  // Order = true means Row Major Matrix
 	class Matrix
 	{
