@@ -24,6 +24,7 @@ namespace mat
 		{
 			return it+=(rowmajor)?C:R;
 		}
+		bool order(){return rowmajor;}
 	private:
 		T d[R*C];
 		bool rowmajor;
