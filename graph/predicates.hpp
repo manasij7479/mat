@@ -9,7 +9,7 @@ namespace mat
 	>
 	bool is_adjacent(mat::AdjacencyMatrix<V,E,EP>& g,const V& x,const V& y)
 	{
-		return g.getEdge(x,y)!=Edge();
+		return g.getEdge(x,y)!=E();
 	}
 	
 	template

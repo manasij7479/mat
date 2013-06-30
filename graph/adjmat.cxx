@@ -73,7 +73,7 @@ namespace mat
 		class EdgeList 
 		{
 		public:
-			EdgeList(MapType& map_,std::vector<Vertex>& tam_,std::vector<Vertex>& vec_)
+			EdgeList(MapType& map_,std::vector<Vertex>& tam_,std::vector<Edge>& vec_)
 			:map(map_),tam(tam_),vec(vec_){};
 			
 			EdgeList(const EdgeList& e)
@@ -141,7 +141,7 @@ namespace mat
 		private:
 			MapType& map;
 			std::vector<Vertex>& tam;
-			std::vector<Vertex>& vec;
+			std::vector<Edge>& vec;
 		};
 		typedef typename EdgeList::iterator edge_iterator;
 		edge_iterator nbegin(const Vertex& v)
