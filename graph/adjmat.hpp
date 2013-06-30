@@ -8,5 +8,5 @@ namespace mat
 	
 }
 
-#include "adjmat.cxx"
+#include "implementation/adjmat.cxx"
 #endif

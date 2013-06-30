@@ -15,5 +15,5 @@ namespace mat
 }
 
 
-#include "adjlist.cxx"
+#include "implementation/adjlist.cxx"
 #endif
