@@ -64,7 +64,7 @@ namespace mat
 			else 
 				ref=Edge();
 			if(!EdgePolicy::directed)
-				removeEdge(y,x,e);
+				removeEdge(y,x);
 		}
 		std::size_t size()
 		{
@@ -204,11 +204,6 @@ namespace mat
 		{
 			return vertex_iterator(size(),map,mat,tam);
 		}
-	private:
-		MatType mat;
-		MapType map;
-		
-		std::vector<Vertex> tam;
 		
 		Edge& getEdge(const Vertex& x,const Vertex& y)
 		{
@@ -220,6 +215,13 @@ namespace mat
 			
 			return mat[xit->second][yit->second];
 		}
+	private:
+		MatType mat;
+		MapType map;
+		
+		std::vector<Vertex> tam;
+		
+
 	};
 }
 #endif

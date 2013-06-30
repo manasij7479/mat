@@ -86,10 +86,6 @@ namespace mat
 		typedef typename EdgeList::iterator edge_iterator;
 		edge_iterator nbegin(const Vertex& v){return getList(v).begin();}
 		edge_iterator nend(const Vertex& v){return getList(v).end();}
-	private:		
-		std::vector<VertexData> lists; // The data for vertex v is stored in map[v] index of this list
-		std::unordered_map<Vertex,std::size_t> map;
-		
 		
 		EdgeList& getList(const Vertex& v)
 		{
@@ -97,6 +93,10 @@ namespace mat
 				throw(std::runtime_error("Vertex absent in Graph.\n"));
 			return lists[map[v]].list;
 		}
+	private:		
+		std::vector<VertexData> lists; // The data for vertex v is stored in map[v] index of this list
+		std::unordered_map<Vertex,std::size_t> map;
+		
 	};
 }
 

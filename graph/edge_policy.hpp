@@ -9,5 +9,12 @@ namespace mat
 		static const bool directed = true;
 	};
 	
+	struct SimpleUndirectedGraph
+	{
+		static const bool multi = false;
+		static const bool directed = false;
+	};
+	
+	
 }
 #endif
