@@ -90,17 +90,26 @@ namespace mat
 			class iterator
 			{
 			public:
-				iterator(std::size_t cur_,std::vector<Edge>& vec_,MapType& map_,std::vector<Vertex>& tam_)
+				iterator
+				(
+					std::size_t cur_,
+					std::vector<Edge>& vec_,
+					MapType& map_,
+					std::vector<Vertex>& tam_
+				)
 				:vec(vec_),cur(set(cur_)),map(map_),tam(tam_){};
+				
 				std::pair<Vertex,Edge> operator*()
 				{
 					return std::make_pair(tam[cur],vec[cur]);
 				}
-				std::unique_ptr<std::pair<Vertex,Edge>> operator->()
+				
+				std::unique_ptr<std::pair<Vertex,Edge>> operator->() // Unavoidale
 				{
 					return std::unique_ptr<std::pair<Vertex,Edge>>
 					(new std::pair<Vertex,Edge>(tam[cur],vec[cur]));
 				}
+				
 				bool operator==(iterator it){return cur==it.cur;}
 				bool operator!=(iterator it){return cur!=it.cur;}
 				iterator operator++(int)
@@ -181,13 +190,11 @@ namespace mat
 			
 			vertex_iterator operator++(int)
 			{
-				cur++;
-				return vertex_iterator(cur,map,mat,tam);
+				return vertex_iterator(++cur,map,mat,tam);
 			}
 			vertex_iterator operator++()
 			{
-				auto x = cur++;
-				return vertex_iterator(x,map,mat,tam);
+				return vertex_iterator(cur++,map,mat,tam);
 			}
 		private:
 			std::size_t cur;
@@ -216,12 +223,11 @@ namespace mat
 			return mat[xit->second][yit->second];
 		}
 	private:
-		MatType mat;
-		MapType map;
+		MatType mat; // vector of vectors representing the matrix
 		
-		std::vector<Vertex> tam;
+		MapType map; //mapping from Vertices to indices ..regardless of vertex type
 		
-
+		std::vector<Vertex> tam; //mapping from indices to Vertices..basically an array
 	};
 }
 #endif

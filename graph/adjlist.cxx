@@ -87,7 +87,7 @@ namespace mat
 		edge_iterator nbegin(const Vertex& v){return getList(v).begin();}
 		edge_iterator nend(const Vertex& v){return getList(v).end();}
 		
-		EdgeList& getList(const Vertex& v)
+		EdgeList& getEdgeList(const Vertex& v)
 		{
 			if(map.find(v)==map.end())
 				throw(std::runtime_error("Vertex absent in Graph.\n"));
@@ -95,7 +95,7 @@ namespace mat
 		}
 	private:		
 		std::vector<VertexData> lists; // The data for vertex v is stored in map[v] index of this list
-		std::unordered_map<Vertex,std::size_t> map;
+		std::unordered_map<Vertex,std::size_t> map; 
 		
 	};
 }
