@@ -1,4 +1,6 @@
-#include "graph.hpp"
+#ifndef MAT_GRAPH_ALGO_PREDICATES_HPP
+#define MAT_GRAPH_ALGO_PREDICATES_HPP
+#include "../graph.hpp"
 namespace mat
 {
 	template
@@ -26,3 +28,4 @@ namespace mat
 		return false;
 	}
 }
+#endif
