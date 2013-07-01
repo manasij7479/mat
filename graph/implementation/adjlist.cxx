@@ -50,7 +50,7 @@ namespace mat
 		}
 		void insertEdge(const Vertex& x,const Vertex& y,const Edge& e)
 		{
-			auto& list = getList(x);
+			auto& list = getEdgeList(x);
 			auto p = std::make_pair(y,e);
 			auto it = std::find_if(list.begin(),list.end(),[&](std::pair<Vertex,Edge> v){return v.first==y;});
 			
