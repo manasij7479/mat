@@ -1,55 +1,76 @@
-﻿#ifndef MAT_VECTOR_SIMD_HPP
-#define MAT_VECTOR_SIMD_HPP
+/*
+Implements SSE intrinsics to leverage vectorization
+*/
 
-#include <emmintrin.h> 
+#ifndef MAT_VECTOR_SSE_HPP
+#define MAT_VECTOR_SSE_HPP
+
+#include <xmmintrin.h> //for SSE
 
 namespace mat {
 
-	class sse2f
+	class ssef
 	{
 	public:
-		sse2f(__m128 ob) : xmm(ob) {}
+		ssef() {} 
+		
+		ssef(__m128 ob) : xmm(ob) {}
 
-		sse2f(float ob){ xmm = _mm_set1_ps(ob); }
+		ssef(float ob){ xmm = _mm_set1_ps(ob); }
 
-		sse2f(float w, float x, float y, float z)
-		{ xmm = _mm_set_ps(w, x, y, z); }
+		ssef(float w, float x, float y, float z)
+		{ xmm = _mm_set_ps(z, y, x, w); }
 
-		sse2f(const float* array4)
-		{ sse2f(array4[0], array4[1], array4[2], array4[3]); }  
+		/* This constructor doesn't work properly */ 
+		ssef(const float* array4)
+		{ ssef(array4[0], array4[1], array4[2], array4[3]); }  
 
-		sse2f operator*(const sse2f &ob) const
-		{ return sse2f(_mm_mul_ps(xmm, ob.xmm)); }
+		ssef operator*(const ssef &ob) const
+		{ return ssef(_mm_mul_ps(xmm, ob.xmm)); }
 
-		sse2f operator+(const sse2f &ob) const
-		{ return sse2f(_mm_add_ps(xmm, ob.xmm)); }
+		ssef operator+(const ssef &ob) const
+		{ return ssef(_mm_add_ps(xmm, ob.xmm)); }
 
-		sse2f operator-(const sse2f &ob) const
-		{ return sse2f(_mm_sub_ps(xmm, ob.xmm)); }
+		ssef operator-(const ssef &ob) const
+		{ return ssef(_mm_sub_ps(xmm, ob.xmm)); }
 
-		sse2f operator/(const sse2f &ob) const
-		{ return sse2f(_mm_div_ps(xmm, ob.xmm)); }
+		ssef operator/(const ssef &ob) const
+		{ return ssef(_mm_div_ps(xmm, ob.xmm)); }
 
-		void operator*=(const sse2f &ob)
+		void operator*=(const ssef &ob)
 		{ xmm = _mm_mul_ps(xmm, ob.xmm); }
 
-		void operator+=(const sse2f &ob)
+		void operator+=(const ssef &ob)
 		{ xmm = _mm_add_ps(xmm, ob.xmm); }
 
-		void operator-=(const sse2f &ob)
+		void operator-=(const ssef &ob)
 		{ xmm = _mm_sub_ps(xmm, ob.xmm); }
 
-		void operator/=(const sse2f &ob)
+		void operator/=(const ssef &ob)
 		{ xmm = _mm_div_ps(xmm, ob.xmm); }
 
 		void operator>>(float *array4)
 		{ _mm_store_ps(array4, xmm); }
-
+		
+		ssef sqrt() 
+		{ return _mm_sqrt_ps(xmm); } 
+		
+		ssef recp()
+		{ return _mm_rcp_ps(xmm); } 
+		
+		ssef rsqrt()
+		{ return _mm_rsqrt_ps(xmm); }
+		
+		friend ssef min(const ssef &lhs, const ssef &rhs)
+		{ return _mm_min_ps(lhs.xmm, rhs.xmm); } 
+		
+		friend ssef max(const ssef &lhs, const ssef &rhs)
+		{ return _mm_max_ps(lhs.xmm, rhs.xmm); } 
+		
 	private:
 		__m128 xmm;
 	};
-
+	
 }
 
 #endif 
-#include "sse_impl.cxx"  //TODO

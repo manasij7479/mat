@@ -10,5 +10,6 @@ namespace mat
 #endif
 #include "makevec.cxx" // Wide variety of factory functions
 #include "generic.cxx" // Generic definition
+#include "ops.hpp" // operations on vectors
 //#include "special.cxx" // Specializations, especially for float SIMD operations 
 

@@ -22,7 +22,7 @@ namespace mat
 		iterator begin(){return d;}
 		iterator end(){return d+D;}
 	private:
-		T d[D];
+		T d[D] ;
 	};
 }
 
