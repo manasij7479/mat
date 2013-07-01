@@ -1,6 +1,7 @@
 #ifndef MAT_VECTOR_ARITHMETIC_HPP
 #define MAT_VECTOR_ARITHMETIC_HPP
 #include "vector.hpp"
+#include "simd/sse2.hpp"
 namespace mat
 {
 	template<typename T,std::size_t D>
@@ -35,6 +36,33 @@ namespace mat
 		for(auto i=0;i<D;++i)
 			x[i]=-x[i];
 		return x;
+	}
+	
+	float dot(Vector<float,4>& lhs,Vector<float,4>& rhs)
+    {
+		Vector<float, 4> result ; 
+		sse2f a(lhs[0], lhs[1], lhs[2], lhs[3]), b(rhs[0], rhs[1], rhs[2], rhs[3]), r ; 
+		r = a * b ;    
+		r >> result ;
+		return (result[0] + result[1] + result[2] + result[3]); 
+    }
+  
+    Vector<float, 4> add(Vector<float, 4>& lhs, Vector<float, 4>& rhs)
+    {
+		Vector<float, 4> result ; 
+		sse2f a(lhs[0], lhs[1], lhs[2], lhs[3]), b(rhs[0], rhs[1], rhs[2], rhs[3]), r ; 
+		r = a + b ;
+		r >> result ; 
+		return result ;
+    }
+  
+    Vector<float, 4> subtract(Vector<float, 4>& lhs, Vector<float, 4>& rhs)
+    {
+		Vector<float, 4> result ; 
+		sse2f a(lhs[0], lhs[1], lhs[2], lhs[3]), b(rhs[0], rhs[1], rhs[2], rhs[3]), r ; 
+		r = a - b ;
+		r >> result ; 
+		return result ;
 	}
 }
 #endif
