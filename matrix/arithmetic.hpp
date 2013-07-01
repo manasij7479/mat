@@ -30,6 +30,5 @@ namespace mat
 				std::swap(m[i][j],m[j][i]);
 	}
 	
-	
 }
 #endif
