@@ -20,10 +20,11 @@ namespace mat
 		typename V,
 		typename E,
 		typename EP,
-		template<typename,typename,typename=SimpleDigraph> class G
+		template<typename,typename,typename=SimpleDigraph> class G,
+		typename Action
 	>
 	std::unordered_map<V,typename distance_type<E>::type>
-	bfs(G<V,E,EP>& g, const V& s)
+	bfs(G<V,E,EP>& g, const V& s, Action f)
 	{
 		std::unordered_map<V,typename distance_type<E>::type> distance;
 		std::queue<V> q;
@@ -39,7 +40,7 @@ namespace mat
 				{
 					distance[y->first] = distance[v]+y->second;
 					q.push(y->first);
-					//TODO:Functor application to come later
+					f(v,y->first);
 				}
 			}
 			

@@ -18,7 +18,9 @@ int main()
 // 		std::cout<<std::endl;
 // 		
 // 	}
-	mat::bfs(g,std::string("foo"));
+	auto f = [&](std::string x,std::string y){std::cout<<x<<" -> "<<y<<std::endl;};
+	auto d = mat::bfs(g,std::string("foo"),f);
+	std::cout<<d["xip"];
 // 	mat::debug_display(g,std::cout);
 
 }

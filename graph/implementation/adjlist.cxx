@@ -66,11 +66,11 @@ namespace mat
 		}
 		void removeEdge(const Vertex& x,const Vertex& y,const Edge& e)
 		{
-			auto& list = getList(x);
+			auto& list = getEdgeList(x);
 			list.remove(std::make_pair(y,e));
 			if(!EdgePolicy::directed)
 			{
-				list = getList(y);
+				list = getEdgeList(y);
 				list.remove(std::make_pair(x,e));
 			}
 		}
@@ -84,8 +84,8 @@ namespace mat
 		vertex_iterator end(){return lists.end();}
 		
 		typedef typename EdgeList::iterator edge_iterator;
-		edge_iterator nbegin(const Vertex& v){return getList(v).begin();}
-		edge_iterator nend(const Vertex& v){return getList(v).end();}
+		edge_iterator nbegin(const Vertex& v){return getEdgeList(v).begin();}
+		edge_iterator nend(const Vertex& v){return getEdgeList(v).end();}
 		
 		EdgeList& getEdgeList(const Vertex& v)
 		{
