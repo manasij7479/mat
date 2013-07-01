@@ -32,7 +32,7 @@ namespace mat
 		const_iterator cend()const{return d+D;}
 		
 	private:
-		T d[D];
+		T d[D] ;
 	};
 }
 

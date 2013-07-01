@@ -18,15 +18,18 @@ namespace mat
 		return result;
 	};
 	
+	/* GCC converts float to double for ... arguments. 
+	Function generates a runtime error.
+	Needs fix */ 
 	template
 	<
-		typename T,
-		std::size_t D
+		typename T = float,
+		std::size_t D = 4
 	>
 	Vector<T,D> make_vector(T t,...)
 	{
 		Vector<T,D> result;
-		int i=0;
+		unsigned int i=0;
 		result[i++]=t;
 		std::va_list vl;
 		va_start(vl,t);
