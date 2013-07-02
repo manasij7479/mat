@@ -1,7 +1,10 @@
 #ifndef MAT_VECTOR_ARITHMETIC_HPP
 #define MAT_VECTOR_ARITHMETIC_HPP
+
 #include "vector.hpp"
 #include "simd/sse2.hpp"
+#include <cmath> 
+
 namespace mat
 {
 	template<typename T,std::size_t D>
@@ -38,31 +41,51 @@ namespace mat
 		return x;
 	}
 	
-	float dot(Vector<float,4>& lhs,Vector<float,4>& rhs)
+	float dot(const Vector<float,4>& lhs, const Vector<float,4>& rhs)
     {
 		Vector<float, 4> result ; 
-		sse2f a(lhs[0], lhs[1], lhs[2], lhs[3]), b(rhs[0], rhs[1], rhs[2], rhs[3]), r ; 
+		sse2f a(lhs), b(rhs), r ; 
 		r = a * b ;    
 		r >> result ;
-		return (result[0] + result[1] + result[2] + result[3]); 
+		return (result.at(0) + result.at(1) + result.at(2) + result.at(3)); 
     }
   
-    Vector<float, 4> add(Vector<float, 4>& lhs, Vector<float, 4>& rhs)
+    Vector<float, 4> add(const Vector<float, 4>& lhs, const Vector<float, 4>& rhs)
     {
 		Vector<float, 4> result ; 
-		sse2f a(lhs[0], lhs[1], lhs[2], lhs[3]), b(rhs[0], rhs[1], rhs[2], rhs[3]), r ; 
+		sse2f a(lhs), b(rhs), r ; 
 		r = a + b ;
 		r >> result ; 
 		return result ;
     }
   
-    Vector<float, 4> subtract(Vector<float, 4>& lhs, Vector<float, 4>& rhs)
+    Vector<float, 4> subtract(const Vector<float, 4>& lhs, const Vector<float, 4>& rhs)
     {
 		Vector<float, 4> result ; 
-		sse2f a(lhs[0], lhs[1], lhs[2], lhs[3]), b(rhs[0], rhs[1], rhs[2], rhs[3]), r ; 
+		sse2f a(lhs), b(rhs), r ;  
 		r = a - b ;
 		r >> result ; 
 		return result ;
 	}
+	
+	Vector<float, 4> mul(const Vector<float, 4>& lhs, float rhs)
+    {
+		Vector<float, 4> result ; 
+		sse2f a(lhs), b(rhs, rhs, rhs, rhs), r ; 
+		r = a * b ;
+		r >> result ; 
+		return result ;
+    }
+	
+	Vector<float, 4> normalize(const Vector<float, 4>& vec)
+	{
+		Vector<float, 4> result ; 
+		if(vec.at(0) == 0 && vec.at(1) == 0 && vec.at(2) == 0 && vec.at(3) == 0) 
+			return result ; 
+		float sum = std::sqrt(dot(vec, vec)) ; 
+		sse2f a(vec), b(sum, sum, sum, sum) ;
+		(a / b) >> result ; 
+		return result ;
+	} 
 }
 #endif

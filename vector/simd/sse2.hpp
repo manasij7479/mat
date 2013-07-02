@@ -24,7 +24,10 @@ namespace mat {
 
 		/* This constructor doesn't work properly */ 
 		sse2f(const float* array4)
-		{ sse2f(array4[0], array4[1], array4[2], array4[3]); }  
+		{ sse2f(array4[0], array4[1], array4[2], array4[3]); } 
+
+		sse2f(const Vector<float, 4>& ob)
+		{ emm = _mm_set_ps(ob.at(3), ob.at(2), ob.at(1), ob.at(0)); } 
 
 		sse2f operator*(const sse2f &ob) const
 		{ return sse2f(_mm_mul_ps(emm, ob.emm)); }
@@ -61,12 +64,15 @@ namespace mat {
 			vec4[2] = f[2]; vec4[3] = f[3] ;
 		}
 		
+		// Square root
 		sse2f sqrt() 
 		{ return _mm_sqrt_ps(emm); } 
 		
+		// Reciprocal
 		sse2f recp()
 		{ return _mm_rcp_ps(emm); } 
 		
+		// Reciprocal of the square root of each float[1:4] 
 		sse2f rsqrt()
 		{ return _mm_rsqrt_ps(emm); }
 		
