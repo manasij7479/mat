@@ -6,7 +6,7 @@ Implements SSE2 intrinsics to leverage vectorization
 #define MAT_VECTOR_SSE2_HPP
 
 #include <emmintrin.h> //for SSE2
-#include "../vector.hpp" 
+#include "../vector.hpp"
 
 namespace mat {
 

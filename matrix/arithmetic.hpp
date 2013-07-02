@@ -1,7 +1,6 @@
 #ifndef MAT_MATRIX_ARITHMETIC_HPP
 #define MAT_MATRIX_ARITHMETIC_HPP
 #include "matrix.hpp"
-#include "../vector/simd/sse2.hpp" 
 namespace mat
 {
 	template<typename T,std::size_t P,std::size_t Q,std::size_t R,bool Order>
