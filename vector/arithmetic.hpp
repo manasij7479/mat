@@ -24,6 +24,14 @@ namespace mat
 			result[i]=x.at(i)+y.at(i);
 		return result;
 	}
+	template<typename T,std::size_t D>
+	Vector<T,D> sub(const Vector<T,D>& x,const Vector<T,D>& y)
+	{
+		Vector<T,D> result;
+		for(auto i=0;i<D;++i)
+			result[i]=x.at(i)-y.at(i);
+		return result;
+	}
 	
 	template<typename T,std::size_t D>
 	Vector<T,D> mul(Vector<T,D> x,const T& t)
@@ -40,6 +48,18 @@ namespace mat
 			x[i]=-x[i];
 		return x;
 	}
+	template<typename T,std::size_t D>
+	Vector<T,D> normalize(const Vector<T,D>& x)
+	{
+		Vector<T,D> result;
+		T sum = dot(x,x);
+		if(sum==0)
+			return result;
+		sum = std::sqrt(T);
+		for(auto i=0;i<D;++i)
+			result[i]=x[i]/sum;
+		return result;
+	}
 	
 	float dot(const Vector<float,4>& lhs, const Vector<float,4>& rhs)
     {
@@ -49,6 +69,10 @@ namespace mat
 		r >> result ;
 		return (result.at(0) + result.at(1) + result.at(2) + result.at(3)); 
     }
+    
+    
+    
+    //<float,4> overloads below
   
     Vector<float, 4> add(const Vector<float, 4>& lhs, const Vector<float, 4>& rhs)
     {
@@ -59,7 +83,7 @@ namespace mat
 		return result ;
     }
   
-    Vector<float, 4> subtract(const Vector<float, 4>& lhs, const Vector<float, 4>& rhs)
+    Vector<float, 4> sub(const Vector<float, 4>& lhs, const Vector<float, 4>& rhs)
     {
 		Vector<float, 4> result ; 
 		sse2f a(lhs), b(rhs), r ;  
@@ -77,7 +101,7 @@ namespace mat
 		return result ;
     }
 	
-	Vector<float, 4> normalize(const Vector<float, 4>& vec)
+	Vector<float, 4> normalize(const Vector<float, 4>& vec) 
 	{
 		Vector<float, 4> result ; 
 		if(vec.at(0) == 0 && vec.at(1) == 0 && vec.at(2) == 0 && vec.at(3) == 0) 
