@@ -1,13 +1,18 @@
 #ifndef MAT_VECTOR_MATRIX_OPS_HPP
 #define MAT_VECTOR_MATRIX_OPS_HPP
 #include "../matrix/matrix.hpp"
-#include "../matrix/ops.hpp"
+#include "arithmetic.hpp"
 namespace mat
 {
 	template<typename T,std::size_t D>
-	Vector<T,D> mul(const Matrix<T,D,D,true>& m,const Vector<T,D>& v)
+	Vector<T,D> mul(Matrix<T,D,D,true>& m,const Vector<T,D>& v)///TODO: Not tested, please verify
 	{
-		///TODO: Too sleepy
+		Vector<T,D> result;
+		for(auto i=0;i<D;++i)
+		{
+			result[i]=mat::dot(m[i],v.begin());
+		}
+		return result;
 	}
 }
 #endif

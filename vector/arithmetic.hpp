@@ -11,6 +11,14 @@ namespace mat
 			result+=x.at(i)*y.at(i);
 		return result;
 	}
+	template<typename T,std::size_t D>
+	T dot(T* x,T* y)
+	{
+		T result=T();
+		for(auto i=0;i<D;++i)
+			result+=x[i]*y[i];
+		return result;
+	}
 	
 	template<typename T,std::size_t D>
 	Vector<T,D> add(const Vector<T,D>& x,const Vector<T,D>& y)
