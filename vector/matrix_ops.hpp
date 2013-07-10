@@ -10,7 +10,7 @@ namespace mat
 		Vector<T,D> result;
 		for(auto i=0;i<D;++i)
 		{
-			result[i]=mat::dot(m[i],v.begin());
+			result[i]=mat::dot<T,D>(m[i],v.begin());//calls the pointer overload of dot
 		}
 		return result;
 	}
