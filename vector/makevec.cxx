@@ -2,7 +2,7 @@
 #define MAT_MAKEVEC_CXX
 
 #include<algorithm>
-#include<cstdarg>
+#include<initializer_list>
 namespace mat
 {
 	template
@@ -18,6 +18,18 @@ namespace mat
 		return result;
 	};
 
+	template
+	<
+		typename T,
+		std::size_t D
+	>
+	Vector<T,D> make_vector(std::initializer_list<T> values)
+	{
+		Vector<T,D> result;
+		std::copy_n(values.begin(),D,result.begin());
+		return result;
+	}
+	
 	
 	/* GCC converts float to double for ... arguments. 
 	Function generates a runtime error.
