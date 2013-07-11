@@ -10,9 +10,16 @@ namespace mat
 	public:
 		typedef T* iterator;
 		typedef T const* const_iterator;
-		Vector()
+		Vector():owner_of_data(true)
 		{
+			d = new T[D];
 			std::fill(d,d+D,T());
+		}
+		Vector(T* t):d(t),owner_of_data(false){}
+		~Vector()
+		{
+			if(owner_of_data)
+				delete [] d;
 		}
 		Vector(const Vector<T,D>& v)
 		{
@@ -32,7 +39,8 @@ namespace mat
 		const_iterator cend()const{return d+D;}
 		
 	private:
-		T d[D] ;
+		T* d;
+		const bool owner_of_data;
 	};
 }
 
