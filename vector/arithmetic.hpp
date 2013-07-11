@@ -55,7 +55,7 @@ namespace mat
 		T sum = dot(x,x);
 		if(sum==0)
 			return result;
-		sum = std::sqrt(T);
+		sum = std::sqrt(result);
 		for(auto i=0;i<D;++i)
 			result[i]=x[i]/sum;
 		return result;

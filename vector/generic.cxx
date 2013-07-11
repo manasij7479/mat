@@ -21,10 +21,16 @@ namespace mat
 			if(owner_of_data)
 				delete [] d;
 		}
-		Vector(const Vector<T,D>& v)
+		Vector(const Vector<T,D>& v):owner_of_data(v.owner_of_data)
 		{
 			std::copy(v.cbegin(),v.cend(),d);
 		}
+		
+		void operator=(const Vector<T,D>& v)
+		{
+			std::copy(v.cbegin(),v.cend(),d);
+		}
+		
 		inline T& operator[](std::size_t i)
 		{
 			return d[i];

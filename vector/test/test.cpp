@@ -7,13 +7,14 @@
 int main()
 {
 	mat::Vector<int,3> x,y;
-	x = mat::make_vector<int,3>(2,3,4);
+	x = mat::make_vector<int,3>({2,3,4});
 	for(auto t:x)
 		std::cout<<t<<' ';
-	y = mat::make_vector<int,3>(1,2,3);
+	y = mat::make_vector<int,3>({1,2,3});
 	for(auto t:y)
 		std::cout<<t<<' ';
 	std::cout<<mat::dot(x,y);
+	
 	mat::Vector<float, 4> test1, test2, result ; 
 	test1[0] = 1.0f, test1[1] = 1.0f, test1[2] = 1.0f, test1[3] = -1.0f ; 
 	test2[0] = 2.0f, test2[1] = 4.0f, test2[2] =  6.0f, test2[3] = -8.0f ; 
@@ -27,4 +28,3 @@ int main()
 	for(auto t:result)
 		std::cout<<t<<' ';
 }
-// This file has been edited
