@@ -6,11 +6,12 @@
 
 int main()
 {
-	mat::Vector<int,3> x,y;
+	mat::Vector<int,3> x;
+	int z[3]={1,2,3};
 	x = mat::make_vector<int,3>({2,3,4});
 	for(auto t:x)
 		std::cout<<t<<' ';
-	y = mat::make_vector<int,3>({1,2,3});
+	mat::Vector<int,3> y(z);
 	for(auto t:y)
 		std::cout<<t<<' ';
 	std::cout<<mat::dot(x,y);
