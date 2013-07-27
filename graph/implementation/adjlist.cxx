@@ -6,6 +6,7 @@
 #include <algorithm>
 #include<stdexcept>
 #include<iostream>
+#include<memory>
 #include "edge_policy.hpp"
 namespace mat
 {
@@ -84,14 +85,21 @@ namespace mat
 		vertex_iterator end(){return lists.end();}
 		
 		typedef typename EdgeList::iterator edge_iterator;
-		edge_iterator nbegin(const Vertex& v){return getList(v).begin();}
-		edge_iterator nend(const Vertex& v){return getList(v).end();}
+		edge_iterator nbegin(const Vertex& v){return getEdgeList(v).begin();}
+		edge_iterator nend(const Vertex& v){return getEdgeList(v).end();}
 		
 		EdgeList& getEdgeList(const Vertex& v)
 		{
 			if(map.find(v)==map.end())
 				throw(std::runtime_error("Vertex absent in Graph.\n"));
 			return lists[map[v]].list;
+		}
+		Edge& getEdge(const Vertex& x, const Vertex& y)
+		{
+			for(auto& elem:getEdgeList(x))
+				if(elem.first==y)
+					return elem.second;
+			return *std::unique_ptr<Edge>();
 		}
 	private:		
 		std::vector<VertexData> lists; // The data for vertex v is stored in map[v] index of this list
