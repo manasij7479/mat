@@ -1,4 +1,5 @@
 #include "../predicates.hpp"
+#include "../search.hpp"
 #include "../../io.hpp"
 #include <iostream>
 int main()
@@ -6,5 +7,6 @@ int main()
 	mat::AdjacencyList<int,int> g=mat::make_graph<int,int,mat::SimpleDigraph,mat::AdjacencyList>(std::cin);
 	mat::debug_display(g,std::cout);
 	
-	std::cout<<mat::is_adjacent<int,int,mat::SimpleDigraph>(g,1,2);
+	mat::Search<int,int,mat::SimpleDigraph,mat::AdjacencyList,mat::QueueBFS> s(g,1);
+	std::cout<<s.distanceTo(3);
 }

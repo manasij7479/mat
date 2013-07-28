@@ -3,27 +3,28 @@
 #include<unordered_map>
 #include<vector>
 #include "../edgetraits.hpp"
+#include <queue>
 //Generic Search Template
 namespace mat
 {
 	/*
 	 *FringeContainer:
-	 * 1.Must have `V get()` and `put(V)`
-	 * 2.Must have `update()`   
+	 * 1.Must have `V get()` and `put(V)`  
 	 */
 	template
 	<
 		typename V,
 		typename E,
 		typename EP,
-		template <typename,typename,typename> Graph,
-		template<typename> class FringeContainer	
+		template <typename,typename,typename>class  Graph,
+		template<typename> class FringeContainer
 	>
 	class Search
 	{
 	public:
-		Search(Graph<V,E,EP>& g_,V& s_):g(g_),s(s_)
+		Search(Graph<V,E,EP>& g_,const V& s_):g(g_),s(s_)
 		{
+			parent.reserve(g_.order());
 			distance[s]=0;
 			fringe.put(s);
 			while(!fringe.empty())
@@ -34,20 +35,44 @@ namespace mat
 					if(distance.find(y->first)==distance.end())//neighbour not in fringe
 					{
 						distance[y->first]=distance[v]+y->second;
-						fringe.put(v,y->first,y->second);
+						fringe.put(y->first);
 						parent[g.vi(y->first)]=v;
 					}
 				}
 			}
 		}
 		std::vector<V> getPath(const V& v);
-		typename mat::edge_traits<E>::sum distanceTo(const V& v);
+		typename mat::edge_traits<E>::sum distanceTo(const V& v)
+		{
+			return distance[v];
+		}
 	private:
 		Graph<V,E,EP>& g;
 		V s;
 		FringeContainer<V> fringe;
 		std::vector<V> parent;
 		std::unordered_map<V,typename mat::edge_traits<E>::sum> distance;
+	};
+	template<typename T>
+	class QueueBFS
+	{
+	public:
+		void put(const T& t)
+		{
+			data.push(t);
+		}
+		T get()
+		{
+			auto t=data.front();
+			data.pop();
+			return t;
+		}
+		bool empty()
+		{
+			return data.empty();
+		}
+	private:
+		std::queue<T> data;
 	};
 }
 #endif

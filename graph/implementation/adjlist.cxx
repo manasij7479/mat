@@ -85,7 +85,7 @@ namespace mat
 				list.remove(std::make_pair(x,e));
 			}
 		}
-		std::size_t size()
+		std::size_t order()
 		{
 			return lists.size();
 		}

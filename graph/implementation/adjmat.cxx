@@ -78,7 +78,7 @@ namespace mat
 			if(!EdgePolicy::directed)
 				removeEdge(y,x);
 		}
-		std::size_t size()
+		std::size_t order()
 		{
 			return mat.size();
 		}
@@ -221,7 +221,7 @@ namespace mat
 		}
 		vertex_iterator end()
 		{
-			return vertex_iterator(size(),map,mat,tam);
+			return vertex_iterator(order(),map,mat,tam);
 		}
 		
 		Edge& getEdge(const Vertex& x,const Vertex& y)
