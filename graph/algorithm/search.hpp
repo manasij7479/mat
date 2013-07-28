@@ -4,6 +4,7 @@
 #include<vector>
 #include "../edgetraits.hpp"
 #include <queue>
+#include <stack>
 //Generic Search Template
 namespace mat
 {
@@ -73,6 +74,27 @@ namespace mat
 		}
 	private:
 		std::queue<T> data;
+	};
+		template<typename T>
+	class StackDFS
+	{
+	public:
+		void put(const T& t)
+		{
+			data.push(t);
+		}
+		T get()
+		{
+			auto t=data.top();
+			data.pop();
+			return t;
+		}
+		bool empty()
+		{
+			return data.empty();
+		}
+	private:
+		std::stack<T> data;
 	};
 }
 #endif
