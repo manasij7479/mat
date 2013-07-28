@@ -31,8 +31,7 @@ namespace mat
 				V v = fringe.get();
 				for(auto y = g.nbegin(v);y!=g.nend(v);++y)
 				{
-					if(distance.find(y->first)==distance.end())
-					//neighbour not in fringe
+					if(distance.find(y->first)==distance.end())//neighbour not in fringe
 					{
 						distance[y->first]=distance[v]+y->second;
 						fringe.put(v,y->first,y->second);
