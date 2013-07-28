@@ -16,13 +16,23 @@ namespace mat
 		typedef std::list<std::pair<Vertex,Edge>> EdgeList;
 		struct VertexData {Vertex v;EdgeList list;};
 	public:
+		bool isVertex(const Vertex& v)
+		{
+			return map.find(v)!=map.end();
+		}
+		std::size_t vi(Vertex v)
+		{
+			return map[v];
+		}
+		Vertex iv(std::size_t i)
+		{
+			return lists[i].v;
+		}
 		void insertVertex(const Vertex& v)
 		{
-			if(map.find(v)==map.end())
-			{
-				map[v] = lists.size();
-				lists.push_back({v,EdgeList()});
-			}
+			if(isVertex(v))return;
+			map[v] = lists.size();
+			lists.push_back({v,EdgeList()});
 		}
 		void removeVertex(const Vertex& v)
 		{
@@ -90,7 +100,7 @@ namespace mat
 		
 		EdgeList& getEdgeList(const Vertex& v)
 		{
-			if(map.find(v)==map.end())
+			if(!isVertex(v))
 				throw(std::runtime_error("Vertex absent in Graph.\n"));
 			return lists[map[v]].list;
 		}
