@@ -5,20 +5,21 @@
 #include "../edgetraits.hpp"
 #include <queue>
 #include <stack>
+
 //Generic Search Template
 namespace mat
 {
 	/*
 	 *FringeContainer:
-	 * 1.Must have `V get()` and `put(V)`  
+	 * 1.Must have `V get()` and `put(V)` 
 	 */
 	template
 	<
 		typename V,
 		typename E,
 		typename EP,
-		template <typename,typename,typename>class  Graph,
-		template<typename> class FringeContainer
+		template <typename,typename,typename>class Graph,
+		template<typename,typename> class FringeContainer
 	>
 	class Search
 	{
@@ -52,9 +53,10 @@ namespace mat
 		V s;
 		FringeContainer<V> fringe;
 		std::vector<V> parent;
+		
 		std::unordered_map<V,typename mat::edge_traits<E>::sum> distance;
 	};
-	template<typename T>
+	template<typename T,typename>
 	class QueueBFS
 	{
 	public:
@@ -75,7 +77,7 @@ namespace mat
 	private:
 		std::queue<T> data;
 	};
-		template<typename T>
+	template<typename T,typename>
 	class StackDFS
 	{
 	public:
@@ -96,5 +98,39 @@ namespace mat
 	private:
 		std::stack<T> data;
 	};
+// 	template<typename T,class Compare>
+// 	class PriorityQueueGEN
+// 	{
+// 	public:
+// 		void put(const T& t)
+// 		{
+// 			data.push(t);
+// 		}
+// 		T get()
+// 		{
+// 			auto t=data.front();
+// 			data.pop();
+// 			return t;
+// 		}
+// 		bool empty()
+// 		{
+// 			return data.empty();
+// 		}
+// 	private:
+// 		std::priority_queue<T,Compare> data;
+// 	};
+// 	template
+// 	<
+// 		typename V,
+// 		typename E,
+// 		typename EP,
+// 		template <typename,typename,typename>class Graph
+// 		
+// 	>
+// 	class BestFirstSearch
+// 	{
+// 		
+// 	};
+	
 }
 #endif
