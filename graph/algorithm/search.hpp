@@ -19,7 +19,7 @@ namespace mat
 		typename E,
 		typename EP,
 		template <typename,typename,typename>class Graph,
-		template<typename,typename> class FringeContainer
+		template<typename> class FringeContainer
 	>
 	class Search
 	{
@@ -56,7 +56,7 @@ namespace mat
 		
 		std::unordered_map<V,typename mat::edge_traits<E>::sum> distance;
 	};
-	template<typename T,typename>
+	template<typename T>
 	class QueueBFS
 	{
 	public:
@@ -77,7 +77,7 @@ namespace mat
 	private:
 		std::queue<T> data;
 	};
-	template<typename T,typename>
+	template<typename T>
 	class StackDFS
 	{
 	public:
