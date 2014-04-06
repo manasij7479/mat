@@ -1,5 +1,5 @@
 #include "../predicates.hpp"
-#include "../search.hpp"
+#include "../search/search.hpp"
 #include "../../io.hpp"
 #include <sstream>
 int main()
