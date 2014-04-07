@@ -1,10 +1,12 @@
+#include "containers.hpp"
 #include<queue>
 namespace mat
 {
 	template<typename T>
-	class QueueBFS
+	class QueueBFS : public FringeContainer<T>
 	{
 	public:
+		QueueBFS(dmap<T>& d):FringeContainer<T>(d){}
 		void put(const T& t)
 		{
 			data.push(t);

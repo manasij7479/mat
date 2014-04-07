@@ -1,10 +1,12 @@
+#include "containers.hpp"
 #include<stack>
 namespace mat
 {
 	template<typename T>
-	class StackDFS
+	class StackDFS : public FringeContainer<T>
 	{
 	public:
+		StackDFS(dmap<T>& d):FringeContainer<T>(d){}
 		void put(const T& t)
 		{
 			data.push(t);

@@ -5,20 +5,17 @@
 #include "../../edgetraits.hpp"
 #include <queue>
 #include<iostream>
+#include "containers.hpp"
 //Generic Search Template
 namespace mat
 {
-	/*
-	 *FringeContainer:
-	 * 1.Must have `V get()` and `put(V)` 
-	 */
 	template
 	<
 		typename V,
 		typename E,
 		typename EP,
 		template <typename,typename,typename>class Graph,
-		template<typename> class FringeContainer
+		template<typename> class ContainerType
 	>
 	class Search
 	{
@@ -27,16 +24,17 @@ namespace mat
 		{
 			distance[s]=0;
 			parent[s]=s;
-			fringe.put(s);
-			while(!fringe.empty())
+			fringe =new ContainerType<V>(distance);
+			fringe->put(s);
+			while(!fringe->empty())
 			{
-				V v = fringe.get();
+				V v = fringe->get();
 				for(auto y = g.nbegin(v);y!=g.nend(v);++y)
 				{
 					if(distance.find(y->first)==distance.end())//neighbour not in fringe
 					{
 						distance[y->first]=distance[v]+y->second;
-						fringe.put(y->first);
+						fringe->put(y->first);
 						parent[y->first]=v;
 					}
 				}
@@ -59,18 +57,20 @@ namespace mat
 		{
 			return distance[v];
 		}
-		
+		~Search()
+		{
+			delete fringe;
+		}
 		
 	private:
 		Graph<V,E,EP>& g;
 		V s;
-		FringeContainer<V> fringe;
+		FringeContainer<V>* fringe;
 		std::unordered_map<V,V> parent;
 		
 		std::unordered_map<V,typename mat::edge_traits<E>::sum> distance;
 	};
 
 }
-#include "stack.hpp"
-#include "queue.hpp"
+
 #endif
