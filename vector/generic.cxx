@@ -9,20 +9,44 @@ namespace mat
 	{
 	public:
 		typedef T* iterator;
-		Vector()
+		typedef T const* const_iterator;
+		Vector():owner_of_data(true)
 		{
+			d = new T[D];
 			std::fill(d,d+D,T());
 		}
-
+		Vector(T* t):d(t),owner_of_data(false){}
+		~Vector()
+		{
+			if(owner_of_data)
+				delete [] d;
+		}
+		Vector(const Vector<T,D>& v):owner_of_data(v.owner_of_data)
+		{
+			std::copy(v.cbegin(),v.cend(),d);
+		}
+		
+		void operator=(const Vector<T,D>& v)
+		{
+			std::copy(v.cbegin(),v.cend(),d);
+		}
+		
 		inline T& operator[](std::size_t i)
 		{
 			return d[i];
 		}
-		
+		T at(std::size_t i) const
+		{
+			return d[i];
+		}
 		iterator begin(){return d;}
 		iterator end(){return d+D;}
+		const_iterator cbegin()const{return d;}
+		const_iterator cend()const{return d+D;}
+		
 	private:
-		T d[D];
+		T* d;
+		const bool owner_of_data;
 	};
 }
 

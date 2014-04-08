@@ -6,6 +6,7 @@
 #include <algorithm>
 #include<stdexcept>
 #include<iostream>
+#include<memory>
 #include "edge_policy.hpp"
 namespace mat
 {
@@ -15,13 +16,23 @@ namespace mat
 		typedef std::list<std::pair<Vertex,Edge>> EdgeList;
 		struct VertexData {Vertex v;EdgeList list;};
 	public:
+		bool isVertex(const Vertex& v)
+		{
+			return map.find(v)!=map.end();
+		}
+		std::size_t vi(Vertex v)
+		{
+			return map[v];
+		}
+		Vertex iv(std::size_t i)
+		{
+			return lists[i].v;
+		}
 		void insertVertex(const Vertex& v)
 		{
-			if(map.find(v)==map.end())
-			{
-				map[v] = lists.size();
-				lists.push_back({v,EdgeList()});
-			}
+			if(isVertex(v))return;
+			map[v] = lists.size();
+			lists.push_back({v,EdgeList()});
 		}
 		void removeVertex(const Vertex& v)
 		{
@@ -74,7 +85,7 @@ namespace mat
 				list.remove(std::make_pair(x,e));
 			}
 		}
-		std::size_t size()
+		std::size_t order()
 		{
 			return lists.size();
 		}
@@ -89,9 +100,16 @@ namespace mat
 		
 		EdgeList& getEdgeList(const Vertex& v)
 		{
-			if(map.find(v)==map.end())
+			if(!isVertex(v))
 				throw(std::runtime_error("Vertex absent in Graph.\n"));
 			return lists[map[v]].list;
+		}
+		Edge& getEdge(const Vertex& x, const Vertex& y)
+		{
+			for(auto& elem:getEdgeList(x))
+				if(elem.first==y)
+					return elem.second;
+			return *std::unique_ptr<Edge>();
 		}
 	private:		
 		std::vector<VertexData> lists; // The data for vertex v is stored in map[v] index of this list

@@ -21,19 +21,31 @@ namespace mat
 				"Multigraph in Adjacency Matrix not available."
 			);
 		}
+		bool isVertex(const Vertex& v)
+		{
+			return map.find(v)!=map.end();
+		}
+		std::size_t vi(Vertex v)
+		{
+			return map[v];
+		}
+		Vertex iv(std::size_t i)
+		{
+			return tam[i];
+		}
 		void insertVertex(const Vertex& v)
 		{
-			if(map.find(v)==map.end())
-			{
-				for(auto& el:mat)
-					el.push_back(Edge());
-				if(mat.empty())
-					mat.push_back(std::vector<Edge>(1,Edge()));
-				else
-					mat.push_back(std::vector<Edge>(mat[0].size(),Edge()));
-				map[v] = tam.size();
-				tam.push_back(v);
-			}
+			if(isVertex(v))return;
+		
+			for(auto& el:mat)
+				el.push_back(Edge());
+			if(mat.empty())
+				mat.push_back(std::vector<Edge>(1,Edge()));
+			else
+				mat.push_back(std::vector<Edge>(mat[0].size(),Edge()));
+			map[v] = tam.size();
+			tam.push_back(v);
+		
 		}
 		void removeVertex(const Vertex& v)
 		{
@@ -66,7 +78,7 @@ namespace mat
 			if(!EdgePolicy::directed)
 				removeEdge(y,x);
 		}
-		std::size_t size()
+		std::size_t order()
 		{
 			return mat.size();
 		}
@@ -209,7 +221,7 @@ namespace mat
 		}
 		vertex_iterator end()
 		{
-			return vertex_iterator(size(),map,mat,tam);
+			return vertex_iterator(order(),map,mat,tam);
 		}
 		
 		Edge& getEdge(const Vertex& x,const Vertex& y)
