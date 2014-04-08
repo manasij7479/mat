@@ -2,12 +2,13 @@
 #include "../adjmat.hpp"
 #include "../adjlist.hpp"
 #include "../io.hpp"
+#include "../algorithm/bfs.hpp"
 #include <string>
 
 int main()
 {
-	mat::AdjacencyMatrix<std::string,int,mat::SimpleDigraph> g 
-	= mat::make_graph<std::string,int,mat::SimpleDigraph,mat::AdjacencyMatrix>(std::cin);
+	mat::AdjacencyList<std::string,int,mat::SimpleDigraph> g 
+	= mat::make_graph<std::string,int,mat::SimpleDigraph,mat::AdjacencyList>(std::cin);
 	
 // 	for(auto x=g.begin();x!=g.end();++x)
 // 	{
@@ -17,6 +18,9 @@ int main()
 // 		std::cout<<std::endl;
 // 		
 // 	}
-	mat::debug_display(g,std::cout);
+	auto f = [&](std::string x,std::string y){std::cout<<x<<" -> "<<y<<std::endl;};
+	auto d = mat::bfs(g,std::string("foo"),f);
+	std::cout<<d["xip"];
+// 	mat::debug_display(g,std::cout);
 
 }
