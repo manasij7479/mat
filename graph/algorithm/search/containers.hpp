@@ -21,5 +21,5 @@ namespace mat
 }
 #include "stack.hpp"
 #include "queue.hpp"
-
+#include "heap.hpp"
 #endif
